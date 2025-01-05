@@ -362,8 +362,7 @@ m5_control2 <- lm(
     data = post_treat_subset)
 
 summ(m5_control2,
-     model.fit = FALSE,
-     robust = "HC2")  # Heteroskedasticity robust standard error adj.
+     model.fit = FALSE, )  ## Add heteroskedasticity robust standard error adj.
 ```
 
 ### Comparing models after adding controls
@@ -396,11 +395,12 @@ m6_clust <- lm(
     data = post_treat_subset)
 
 summ(m6_clust,
-     robust = "HC2",
-     cluster = "pair_id", # Add SE based on pair-clusters
+     robust = "HC2", # Add SE based on pair-clusters
      model.fit = FALSE)
 
 ```
+
+
 ------------------------------------------------------------------------
 
 **Key takeaways:**
