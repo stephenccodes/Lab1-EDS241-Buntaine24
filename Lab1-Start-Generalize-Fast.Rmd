@@ -158,8 +158,8 @@ check_model(m1_ols,  check = "qq" )
 
 -   We can `relax` the normality assumption
 -   The outcome `waste_piles` is a `count variable`, not a true continuous variable
--   We can try out a common estimator used for count outcomes, the `Poisson GLM`
--   Let's estimate a `Generalized Linear Model` (GLM)
+-   We can try out a common estimator used for count outcomes, `Poisson regression`
+-   Let's estimate a `Generalized Linear Model (GLM)`
 
 ------------------------------------------------------------------------
 
@@ -217,7 +217,7 @@ check_overdispersion(m2_poisson)
 
 -   The coefficients returned by `glm()` are now on the `log scale` (i.e., `exp(coef) = Odds Ratio`)
 -   Notice in the GLM function we specified the distribution as, `family = poisson(link = "log")`
--   Alternative specification option- use a simple `log transformation` to get comparable resukt
+-   Alternative specification option- use a simple `log transformation` to get comparable result
 -   Importantly, the `log-OLS` regression model coefficients are intuitive to interpret
 
 ------------------------------------------------------------------------
@@ -234,6 +234,7 @@ m3_log <-
 
 summ(m3_log, model.fit = FALSE)
 ```
+
 
 ### Compare observed data to simulated data based on the fitted model (`m3_log`)
 ```{r}
@@ -255,6 +256,7 @@ export_summs(m1_ols, m2_poisson, m3_log,
              statistics = "none")
 ```
 
+------------------------------------------------------------------------
 
 ### Let's do some quick math to compare treatment effect estimates
 ```{r}
@@ -266,7 +268,13 @@ m3_est_log = (-0.42)*100         # % change = -42
 
 ```
 
-**So the estimate can be interpret as follows:**
+------------------------------------------------------------------------
+
+### Analysis check-in: 
+
+    So far the log-OLS regression model is the best fitting model we have specified 
+
+**The treatment estimate for log-OLS can be interpret as follows:**
 
 > *The model estimated that the treatment group had a 42% reduction in waste piles relative to the control group.*
 
@@ -286,7 +294,6 @@ post_treat_subset %>%
     tbl_summary(
         by = treat,
         statistic = list(all_continuous() ~ "{mean} ({sd})")) %>% 
-    add_p() %>% 
     modify_header(label ~ "**Variable**") %>%
     modify_spanning_header(c("stat_1", "stat_2") ~ "**Treatment**") 
     
@@ -323,7 +330,7 @@ summ(m4_control, model.fit = FALSE)
 
 ------------------------------------------------------------------------
 
-No! We should account for events that might also affect trash burning during the treatment period
+**No!** We should account for events that might also affect trash burning during the treatment period
 
     I.e., Anything else that might affect the number of trash piles burned (besides our treatment)
 
@@ -398,17 +405,17 @@ summ(m6_clust,
 
 **Key takeaways:**
 
--   Our treatment effect result is `robust` (remains stable) after adding the clustered SE adjustment
+-   Our treatment effect result is `robust` (remains unchanged) after adding the standard error adjustment
 -   **NOTE**: That the standard error (`SE`) is slightly more `conservative` (i.e., the SE increased)
--   After accounting for dependencies by pair clusters the `SE` increased by .01 (`SE_M5 = .06`; `SE_M6 = .07`).
+-   After accounting for dependencies by pair clusters the `SE` increased by .01 
 -   However, our interpretation of the treatment effect remains unchanged 
--   The treatment was found to reduce waste pile burning by 27% (a statistically significant result; `p<.001`).
+-   The treatment was found to reduce waste pile burning by 27% (`p<.001`).
 
     Model `M6` replicates the treatment effect reported in Buntaine et al., 2024 (see Figure 2; T+6)
     
 ------------------------------------------------------------------------
    
-### Figure 2: Buntaine et al. (2024) - Replication of treatment estimate (`T+6`) 
+### Figure 2 adapted from Buntaine et al. (2024) - Replication of `T+6` treatment estimate 
   
 ![Source (Buntaine et al., 2024)](figures/Fig.2_Buntaine24.png)
 

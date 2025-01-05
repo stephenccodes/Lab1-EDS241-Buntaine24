@@ -1,10 +1,10 @@
-# Lab1 - EDS241
+# Lab1 - EDS241 - Generalize fast!
 
-### subtitle: "Replication data from experiment: 
+### subtitle: Replication data from experiment: 
 
 ### *Social Competition Drives Collective Action to Reduce Informal Waste Burning in Uganda*"
 
-Exploring how specification changes results. Data source; Buntaine et al. (2024)
+Exploring how specification changes results.
 
 ------------------------------------------------------------------------
 
@@ -29,6 +29,6 @@ Open access data was utilized for this class exercise from the study (Buntaine e
     Estimating complex models is a relatively easy part of our work as data scientists...
 
     * Making informed specification decisions & communicating results is the hard part
-    (i.e., the science side of `data science`)!  
+    (i.e., the science side of 'data science')!  
     
 ------------------------------------------------------------------------
